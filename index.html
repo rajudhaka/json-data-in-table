@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="facebook-domain-verification"
+      content="hdkyr3dw7gea3idaly8pbp1npviju5"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      table#career-jobs-table {
+        border: 1px solid #000;
+        border-collapse: collapse;
+      }
+      #career-jobs-data-output tr > td:nth-child(3),
+      #career-jobs-data-output tr > td:nth-child(5) {
+        text-align: left;
+      }
+
+      #career-jobs-data-output tr > td:nth-child(4) a {
+        background: #012639;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+        display: inline-block;
+        text-decoration: none;
+      }
+
+      #career-jobs-table thead {
+        border: 1px solid;
+      }
+
+      #career-jobs-table tr,
+      #career-jobs-table th,
+      #career-jobs-table td {
+        border: 1px solid #000;
+        padding: 10px;
+      }
+
+      tbody#career-jobs-data-output {
+        vertical-align: top;
+      }
+
+      tbody#career-jobs-data-output theadh {
+        vertical-align: middle;
+      }
+    </style>
+    <div style="overflow-x: auto">
+      <table id="career-jobs-table">
+        <thead>
+          <tr>
+            <th>Job Title</th>
+            <th>Company Name</th>
+            <th>Description</th>
+            <th>Apply URL</th>
+            <th>Requirements</th>
+            <th>Published Date</th>
+          </tr>
+        </thead>
+        <tbody id="career-jobs-data-output">
+          <!-- Prodcuts from javascript file in here. -->
+        </tbody>
+      </table>
+    </div>
+    <a href=""></a>
+    <script>
+      fetch(
+        "https://recruiting.paylocity.com/recruiting/v2/api/feed/jobs/cd357c9c-d6b0-47ba-ad96-4f00b82a3266"
+      )
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (products) {
+          let placeholder = document.querySelector("#career-jobs-data-output");
+          var jobsinfo = products.jobs;
+          let jobs_output = "";
+          for (var i = 0; i < jobsinfo.length; i++) {
+            jobs_output += `
+         <tr>
+            <td>${jobsinfo[i].title}</td>
+            <td>${jobsinfo[i].companyName}</td>
+            <td>${jobsinfo[i].description}</td>
+            <td><a href="${jobsinfo[i].applyUrl}" target="_blank">Apply Now</a></td>
+            <td>${jobsinfo[i].requirements}</td>
+            <td>${jobsinfo[i].publishedDate}</td>
+         </tr>
+      `;
+            // console.log(jobsinfo);
+          }
+
+          placeholder.innerHTML = jobs_output;
+        });
+    </script>
+  </body>
+</html>
